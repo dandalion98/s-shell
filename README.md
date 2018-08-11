@@ -31,7 +31,7 @@ Custom assets that you trust must be defined in `config/assets.json` (for devnet
 `pay("<target_account_address>", 0.0035, "my_memo")`
 
 # Installation
-*git submodule init .*
+*git submodule init *
 
 *git submodule update --remote*
 
