@@ -1,5 +1,5 @@
 # s-shell
-s-shell is a CLI shell for securely performing Stellar operations that supports multi-sig.
+s-shell is a REPL shell for securely performing Stellar operations that supports multi-sig.
 
 For security, s-shell works with encrypted account files that are exported from s-cli.
 
