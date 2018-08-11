@@ -752,7 +752,7 @@ class StellarAccount {
 			var result = await server.submitTransaction(transaction);
 
 			// log.info(`successfully sent payment`)
-			console.dir(result)
+			// console.dir(result)
 			return [result.hash, null]
 		} catch (error) {
 			log.error(`error sending payment: ${error}`)
@@ -766,7 +766,7 @@ class StellarAccount {
         transaction.sign(this.key);
 
         for (let sk of this.signerKeys) {
-            console.log("signing with: sk="+sk)
+            // console.log("signing with: sk="+sk)
             transaction.sign(sk);
         }
     }

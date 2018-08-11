@@ -12,7 +12,7 @@ let server, wallets, assets
 let trustedIssuers = []
 console.log("init accts")
 let accounts = []
-let asset = {}
+let asset = StellarSdk.Asset.native()
 
 function getAsset(name) {
     if (name == "XLM") {
@@ -87,11 +87,12 @@ async function setWeights(l, m, h) {
     await a.setWeights(parseInt(l), parseInt(m), parseInt(h))
 }
 
-async function lockout() {
-    console.log("locking out account")
-    let a = await server.getAccount(accounts)
-    await a.lockout()
-}
+// WARNING: Danger!!
+// async function lockout() {
+//     console.log("locking out account")
+//     let a = await server.getAccount(accounts)
+//     await a.lockout()
+// }
 
 
 async function setDomain(d) {
@@ -140,11 +141,7 @@ async function clear() {
     accounts = []
 }
 
-async function pay(dest, amt, memo) {
-    if (amt > 100 && !asset) {
-        throw new Error("too much native xlm! check!")
-    }
-
+async function pay(dest, amt, memo) {    
     let a = await server.getAccount(accounts)
     await a.sendPayment(dest, String(amt), memo, asset)
 }
@@ -161,6 +158,17 @@ function info() {
     console.log("")
     console.log("asset=")
     console.dir(asset)
+}
+
+async function getBalance() {    
+    let account = await server.getAccount(accounts)
+    let balance = await account.getBalanceFull()
+    pprint(balance)
+}
+
+function pprint(obj) {
+    var json = JSON.stringify(obj, null, 4);
+    console.dir(json)
 }
 
 initLivenet()
@@ -181,7 +189,10 @@ rs.context.info = info
 rs.context.clear = clear
 rs.context.domain = setDomain
 rs.context.weights = setWeights
-rs.context.lockout = lockout
+// rs.context.lockout = lockout
+rs.context.balance = getBalance
+
+
 
 process.on('unhandledRejection', (reason, p) => {
     console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
