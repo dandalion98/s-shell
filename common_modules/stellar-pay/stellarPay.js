@@ -573,6 +573,22 @@ class StellarAccount {
 			return [null, "unknown"]
 		} 
     }
+
+    async setInflation(addr) {
+    	log.info("setting inflation:" + addr)
+        await this.loadAccount()
+
+        var txBuilder = new StellarSdk.TransactionBuilder(this.account)
+
+        txBuilder.addOperation(Operation.setOptions({
+                inflationDest: addr
+        }))
+
+        let transaction = txBuilder.build(); 
+        this.sign(transaction)
+        var result = await this.server.submitTransaction(transaction);
+        return result
+    }
     
 	async setHomeDomain(dom) {
 		await this.loadAccount()
