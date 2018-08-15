@@ -1,5 +1,5 @@
 # s-shell
-s-shell is a REPL shell for securely performing Stellar operations that supports multi-sig.
+s-shell is a REPL shell for securely performing Stellar operations that supports multi-sig. This tool was build for the security paranoid who insists on working with encrypted keys of multisig accounts in a minimal ephemeral environment.
 
 For security, s-shell works with encrypted account files that are exported from s-cli.
 
