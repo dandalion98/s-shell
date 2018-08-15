@@ -43,6 +43,7 @@ function initTestnet() {
     } catch (error) {}
 
     loadTrustedIssuers()
+    return null    
 }
 
 function initLivenet() {
@@ -53,6 +54,7 @@ function initLivenet() {
     } catch (error) {}
 
     loadTrustedIssuers()
+    return null    
 }
 
 function setAsset(name) {
@@ -66,24 +68,25 @@ function setAsset(name) {
     }
 
     asset = server.getAsset(name, assets[name].issuer)
+    return null
 }
 
 async function addSigner(s) {
-    console.log("adding signer: s=" + server)
     let a = await server.getAccount(accounts)
     await a.addSigner(s)
+    return null
 }
 
 async function removeSigner(s) {
-    console.log("adding signer: s=" + server)
     let a = await server.getAccount(accounts)
     await a.removeSigner(s)
+    return null
 }
 
-async function setWeights(l, m, h) {
-    console.log("adding signer: s=" + server)
+async function setWeights(type, weight) {
     let a = await server.getAccount(accounts)
-    await a.setWeights(parseInt(l), parseInt(m), parseInt(h))
+    await a.setWeights(type, weights)
+    return null
 }
 
 // WARNING: Danger!!
@@ -229,7 +232,6 @@ let CMDS = [
 ]
 
 let rs = repl.start({ prompt: 'stellar > ' })
-
 for (let cmd of CMDS) {
     rs.context[cmd.name] = cmd.fn
 }
